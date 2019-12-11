@@ -7,15 +7,16 @@ package demo;
  */
 public class Main {
     public static void main(String[] args) {
-        int[] arr = new int[]{7, 3, 10, 12, 5, 1, 9};
+        int[] arr = new int[]{2,1,4,3,5,6};
         BinarySortTree binarySortTree = new BinarySortTree();
         for (int i : arr) {
             binarySortTree.add(new Node(i));
         }
-
-        binarySortTree.midShow();
-        System.out.println("------------");
-        binarySortTree.delete(1);
-        binarySortTree.midShow();
+        System.out.println(binarySortTree.root.height());
+        System.out.println(binarySortTree.root.value);
+//        binarySortTree.midShow();
+//        System.out.println("------------");
+//        binarySortTree.delete(1);
+//        binarySortTree.midShow();
     }
 }

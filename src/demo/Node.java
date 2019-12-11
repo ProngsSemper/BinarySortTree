@@ -13,6 +13,20 @@ public class Node {
         this.value = value;
     }
 
+    public int leftHeight() {
+        if (left == null) {
+            return 0;
+        }
+        return left.height();
+    }
+
+    public int rightHeight() {
+        if (right == null) {
+            return 0;
+        }
+        return right.height();
+    }
+
     public void add(Node node) {
         if (node == null) {
             return;
@@ -30,6 +44,45 @@ public class Node {
                 this.right.add(node);
             }
         }
+        //查询是否平衡
+        //右旋转
+        if (leftHeight() - rightHeight() >= 2) {
+            rightRotate();
+        }
+        //左旋转
+        if (leftHeight() - rightHeight() <= -2) {
+            leftRotate();
+        }
+    }
+
+    /**
+     * 右旋转
+     */
+    private void rightRotate() {
+        //创建一个新节点，值等于当前节点值
+        Node newRight = new Node(value);
+        //新节点右子树设置为当前节点右子树
+        newRight.right = right;
+        //新节点左子树设置为当前节点左子树的右子树
+        newRight.left = left.right;
+        //当前节点的值换为左子节点的值
+        value = left.value;
+        //当前节点的左子树设置为左子树的左子树
+        left = left.left;
+        //当前节点的右子树设置为新节点
+        right = newRight;
+    }
+
+    /**
+     * 左旋转
+     */
+    private void leftRotate() {
+        Node newLeft = new Node(value);
+        newLeft.left = left;
+        newLeft.right = right.left;
+        value = right.value;
+        right = right.right;
+        left = newLeft;
     }
 
     public void midShow(Node node) {
@@ -68,5 +121,9 @@ public class Node {
             }
         }
         return null;
+    }
+
+    public int height() {
+        return Math.max(left == null ? 0 : left.height(), right == null ? 0 : right.height()) + 1;
     }
 }
